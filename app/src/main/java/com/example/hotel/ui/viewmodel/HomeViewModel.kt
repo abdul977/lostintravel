@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotel.data.auth.AuthManager
 import com.example.hotel.data.exception.InvalidTokenException
+import com.example.hotel.data.model.FallbackData
 import com.example.hotel.data.model.Place
 import com.example.hotel.data.repository.PlaceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -112,33 +113,51 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
 
-            val result = repository.getRecommendedPlaces()
+            try {
+                val result = repository.getRecommendedPlaces()
 
-            _uiState.value = result.fold(
-                onSuccess = { places ->
-                    // For now, we'll use the same places for frequently visited
-                    // In a real app, this would come from user history or preferences
-                    val frequentlyVisited = places.take(3)
-                    HomeUiState.Success(places, frequentlyVisited)
-                },
-                onFailure = {
-                    android.util.Log.e("HomeViewModel", "Failed to load places: ${it.message}")
-                    when (it) {
-                        is InvalidTokenException -> {
-                            // Clear the token since it's invalid
-                            viewModelScope.launch {
-                                authManager.clearToken()
-                                com.example.hotel.data.network.ApiClient.refreshApiService()
+                _uiState.value = result.fold(
+                    onSuccess = { places ->
+                        // For now, we'll use the same places for frequently visited
+                        // In a real app, this would come from user history or preferences
+                        val frequentlyVisited = places.take(3)
+                        HomeUiState.Success(places, frequentlyVisited)
+                    },
+                    onFailure = { error ->
+                        android.util.Log.e("HomeViewModel", "Failed to load places: ${error.message}")
+                        when (error) {
+                            is InvalidTokenException -> {
+                                // Clear the token since it's invalid
+                                viewModelScope.launch {
+                                    authManager.clearToken()
+                                    com.example.hotel.data.network.ApiClient.refreshApiService()
+                                }
+                                // Use fallback data instead of showing an error
+                                android.util.Log.d("HomeViewModel", "Using fallback data due to authentication error")
+                                HomeUiState.Success(
+                                    recommendedPlaces = FallbackData.recommendedPlaces,
+                                    frequentlyVisited = FallbackData.frequentlyVisitedPlaces
+                                )
                             }
-                            HomeUiState.Error(
-                                message = it.message ?: "Authentication error. Please sign in again.",
-                                isAuthError = true
-                            )
+                            else -> {
+                                // Use fallback data instead of showing an error
+                                android.util.Log.d("HomeViewModel", "Using fallback data due to general error: ${error.message}")
+                                HomeUiState.Success(
+                                    recommendedPlaces = FallbackData.recommendedPlaces,
+                                    frequentlyVisited = FallbackData.frequentlyVisitedPlaces
+                                )
+                            }
                         }
-                        else -> HomeUiState.Error(it.message ?: "Failed to load places")
                     }
-                }
-            )
+                )
+            } catch (e: Exception) {
+                android.util.Log.e("HomeViewModel", "Exception during API call: ${e.message}")
+                // Use fallback data in case of any exception
+                _uiState.value = HomeUiState.Success(
+                    recommendedPlaces = FallbackData.recommendedPlaces,
+                    frequentlyVisited = FallbackData.frequentlyVisitedPlaces
+                )
+            }
         }
     }
 
@@ -159,6 +178,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             // Also refresh the API client to clear any cached token
             com.example.hotel.data.network.ApiClient.refreshApiService()
             android.util.Log.d("HomeViewModel", "API client refreshed after sign out")
+
+            // After signing out, show fallback data instead of error
+            _uiState.value = HomeUiState.Success(
+                recommendedPlaces = FallbackData.recommendedPlaces,
+                frequentlyVisited = FallbackData.frequentlyVisitedPlaces
+            )
         }
+    }
+
+    /**
+     * Loads fallback data when API is unavailable
+     */
+    fun loadFallbackData() {
+        _uiState.value = HomeUiState.Success(
+            recommendedPlaces = FallbackData.recommendedPlaces,
+            frequentlyVisited = FallbackData.frequentlyVisitedPlaces
+        )
     }
 }

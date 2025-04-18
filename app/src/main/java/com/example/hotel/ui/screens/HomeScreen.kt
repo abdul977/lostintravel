@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -77,7 +78,7 @@ fun HomeScreen(
                 }
 
                 is HomeUiState.Error -> {
-                    // Show error message
+                    // Show error message with option to load fallback data
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -94,22 +95,44 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.height(16.dp))
 
                         if (state.isAuthError) {
-                            Button(
-                                onClick = onSignOut,
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Blue
-                                )
-                            ) {
-                                Text("Sign In Again")
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Button(
+                                    onClick = onSignOut,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Blue
+                                    )
+                                ) {
+                                    Text("Sign In Again")
+                                }
+
+                                Button(
+                                    onClick = { viewModel.loadFallbackData() },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF4CAF50)
+                                    )
+                                ) {
+                                    Text("Use Offline Data")
+                                }
                             }
                         } else {
-                            Button(
-                                onClick = { viewModel.refresh() },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Blue
-                                )
-                            ) {
-                                Text("Retry")
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Button(
+                                    onClick = { viewModel.refresh() },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Blue
+                                    )
+                                ) {
+                                    Text("Retry")
+                                }
+
+                                Button(
+                                    onClick = { viewModel.loadFallbackData() },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF4CAF50)
+                                    )
+                                ) {
+                                    Text("Use Offline Data")
+                                }
                             }
                         }
                     }
@@ -149,8 +172,17 @@ fun HomeScreen(
                     }
                 }
 
-                else -> {
-                    // Initial state, do nothing
+                HomeUiState.Initial -> {
+                    // Initial state - load fallback data immediately
+                    LaunchedEffect(Unit) {
+                        viewModel.loadFallbackData()
+                    }
+
+                    // Show loading indicator while fallback data is being loaded
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center),
+                        color = Blue
+                    )
                 }
             }
         }

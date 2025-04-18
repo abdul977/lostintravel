@@ -1,0 +1,109 @@
+LostInTravel: Senior Android Engineer Code Test- FrontendLabs
+
+Overview:
+We're building LostInTravel, a curated travel inspiration app. Your task is to implement the login flow and the home screen based on the design and real data from our public API.
+
+This test assesses your ability to deliver functional, beautiful UI using Jetpack Compose, manage clean architecture, handle API integrations, and incorporate Google authentication.
+ 
+🔗 Resources
+Figma Design: LostInTravel
+https://www.figma.com/file/JeVDDtspBZJy87tGrfMvWt/LostInTravel?node-id=5%3A2
+
+API Base URL: https://lostapi.frontendlabs.co.uk
+
+Node ID to Focus On: 5:2 (Home screen)
+
+📲 Requirements
+1. Google Authentication
+Implement Google Sign-In using Firebase Authentication or Google Identity Services.
+
+Show a “Continue with Google” login screen on first launch.
+
+Upon successful login, navigate to the home screen.
+
+Persist login state using DataStore or similar.
+
+Provide a sign-out option on the home screen.
+
+2. Home Screen
+Replicate the home screen UI from the Figma design:
+
+Header
+
+Horizontal scrollable list of travel destinations
+
+Fetch destinations from the RecommendedPlaces query.
+
+Each card should show:
+
+Destination image
+
+Name
+
+Country
+
+Handle:
+
+Loading state
+
+Error state
+
+Empty state
+
+🛠 Tech Requirements
+Language: Kotlin
+
+UI: Jetpack Compose
+
+Architecture: MVVM with separation of concerns (UI, Domain, Data)
+
+Networking: Retrofit or Ktor
+
+Images: Coil or Glide
+
+Auth: Firebase or Google Identity Services
+
+Persistence: DataStore
+
+🌟 Bonus Points
+Smooth UI transitions or animations
+
+Pull-to-refresh
+
+Destination detail screen
+
+Offline caching (Room or DataStore)
+
+Light/Dark theme support
+
+⏱ Time Estimate
+~4–7 hours
+
+Focus on code clarity, structure, and maintainability over completeness
+
+✅ Evaluation Criteria
+Authentication flow and session handling
+
+API integration and UI rendering
+
+Code structure, modularity, and best practices
+
+Use of Compose idioms and state management
+
+Error handling and UX polish
+
+README clarity and Git hygiene
+
+📦 Deliverables
+GitHub repo or zipped project
+
+README.md with:
+
+Setup/run instructions
+
+Your architecture and design choices
+
+Any trade-offs or limitations
+
+Future improvements
+
