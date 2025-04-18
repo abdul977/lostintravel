@@ -87,7 +87,7 @@ fun SplashScreen(
             ),
         contentAlignment = Alignment.Center
     ) {
-        // Top map image - moved higher as per arrow direction
+        // Top map image - moved higher as per arrow direction and flipped upside down
         Image(
             painter = painterResource(id = R.drawable.map),
             contentDescription = "Map top",
@@ -99,6 +99,7 @@ fun SplashScreen(
                     WindowHeightSizeClass.MEDIUM -> 0.responsiveHeight() // Reduced padding to move up
                     WindowHeightSizeClass.EXPANDED -> 0.responsiveHeight() // Reduced padding to move up
                 })
+                .rotate(180f) // Rotate 180 degrees to flip upside down
                 .align(Alignment.TopCenter)
         )
 
