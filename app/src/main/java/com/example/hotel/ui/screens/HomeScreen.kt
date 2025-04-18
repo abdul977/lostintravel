@@ -50,7 +50,8 @@ import com.example.hotel.ui.util.ResponsiveDimensions.responsiveTextSize
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(factory = ViewModelProvider.AndroidViewModelFactory.getInstance(androidx.compose.ui.platform.LocalContext.current.applicationContext as android.app.Application)),
-    onSignOut: () -> Unit = {}
+    onSignOut: () -> Unit = {},
+    onPlaceClick: (String) -> Unit = {}
 ) {
     // Get window size class for responsive layout
     val windowSizeClass = LocalWindowSizeClass.current
@@ -160,13 +161,15 @@ fun HomeScreen(
                             // Frequently visited section
                             if (state.frequentlyVisited.isNotEmpty()) {
                                 FrequentlyVisitedSection(
-                                    places = state.frequentlyVisited
+                                    places = state.frequentlyVisited,
+                                    onPlaceClick = onPlaceClick
                                 )
                             }
 
                             // Recommended places section
                             RecommendedPlacesSection(
-                                places = state.recommendedPlaces
+                                places = state.recommendedPlaces,
+                                onPlaceClick = onPlaceClick
                             )
                         }
                     }
@@ -429,7 +432,8 @@ fun SearchBar(
  */
 @Composable
 fun FrequentlyVisitedSection(
-    places: List<com.example.hotel.data.model.Place>
+    places: List<com.example.hotel.data.model.Place>,
+    onPlaceClick: (String) -> Unit = {}
 ) {
     // Get window size class for responsive layout
     val windowSizeClass = LocalWindowSizeClass.current
@@ -477,7 +481,7 @@ fun FrequentlyVisitedSection(
             items(places) { place ->
                 FrequentlyVisitedCard(
                     place = place,
-                    onClick = { /* Handle click */ },
+                    onClick = { onPlaceClick(place.id) },
                     onFavoriteClick = { /* Handle favorite click */ }
                 )
             }
@@ -492,7 +496,8 @@ fun FrequentlyVisitedSection(
  */
 @Composable
 fun RecommendedPlacesSection(
-    places: List<com.example.hotel.data.model.Place>
+    places: List<com.example.hotel.data.model.Place>,
+    onPlaceClick: (String) -> Unit = {}
 ) {
     // Get window size class for responsive layout
     val windowSizeClass = LocalWindowSizeClass.current
@@ -566,7 +571,7 @@ fun RecommendedPlacesSection(
             places.forEach { place ->
                 RecommendedPlaceCard(
                     place = place,
-                    onClick = { /* Handle click */ },
+                    onClick = { onPlaceClick(place.id) },
                     onFavoriteClick = { /* Handle favorite click */ }
                 )
             }

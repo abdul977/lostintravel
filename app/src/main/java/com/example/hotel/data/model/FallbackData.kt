@@ -9,7 +9,7 @@ object FallbackData {
      */
     val frequentlyVisitedPlaces = listOf(
         Place(
-            id = "fv1",
+            id = "mykonos1",
             leadingDestinationTitle = "Mykonos",
             subDestinationTitle = "Chora, Greece",
             description = "Beautiful island in Greece with stunning beaches and vibrant nightlife.",
@@ -19,7 +19,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1601581875039-e899893d520c?q=80&w=1974&auto=format&fit=crop"
         ),
         Place(
-            id = "fv2",
+            id = "waterfort2",
             leadingDestinationTitle = "Waterfort",
             subDestinationTitle = "Venesia, Italy",
             description = "Historic waterfort in the beautiful city of Venice, Italy.",
@@ -29,7 +29,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1986&auto=format&fit=crop"
         ),
         Place(
-            id = "fv3",
+            id = "delli3",
             leadingDestinationTitle = "Delli",
             subDestinationTitle = "Chora, Greece",
             description = "Charming destination with rich history and culture.",
@@ -39,7 +39,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2071&auto=format&fit=crop"
         ),
         Place(
-            id = "fv4",
+            id = "baham4",
             leadingDestinationTitle = "Baham",
             subDestinationTitle = "Venesia, Italy",
             description = "Tropical paradise with crystal clear waters and white sand beaches.",
@@ -55,7 +55,7 @@ object FallbackData {
      */
     val recommendedPlaces = listOf(
         Place(
-            id = "rp1",
+            id = "kigali1",
             leadingDestinationTitle = "Kigali Resort",
             subDestinationTitle = "Kigali, Rwanda",
             description = "Luxury resort in the heart of Rwanda with stunning views.",
@@ -65,7 +65,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop"
         ),
         Place(
-            id = "rp2",
+            id = "maldives1",
             leadingDestinationTitle = "Maldives",
             subDestinationTitle = "Maldives, Rep of Maldives",
             description = "Paradise island with overwater bungalows and turquoise waters.",
@@ -75,7 +75,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1965&auto=format&fit=crop"
         ),
         Place(
-            id = "rp3",
+            id = "sumbing1",
             leadingDestinationTitle = "Sumbing Mount",
             subDestinationTitle = "Chora, Greece",
             description = "Mount Sumbing is an active stratovolcano in Central Java, Indonesia.",
@@ -85,7 +85,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
         ),
         Place(
-            id = "rp4",
+            id = "maldives2",
             leadingDestinationTitle = "Maldives",
             subDestinationTitle = "Maldives, Rep of Maldives",
             description = "Another beautiful resort in the Maldives with private beaches.",
@@ -95,7 +95,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=1974&auto=format&fit=crop"
         ),
         Place(
-            id = "rp5",
+            id = "kigali2",
             leadingDestinationTitle = "Kigali Resort",
             subDestinationTitle = "Kigali, Rwanda",
             description = "Another luxury resort in Rwanda with excellent amenities.",
@@ -105,7 +105,7 @@ object FallbackData {
             imageUrl = "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop"
         ),
         Place(
-            id = "rp6",
+            id = "sumbing2",
             leadingDestinationTitle = "Sumbing Mount",
             subDestinationTitle = "Chora, Greece",
             description = "Another view of Mount Sumbing with its majestic peaks.",
