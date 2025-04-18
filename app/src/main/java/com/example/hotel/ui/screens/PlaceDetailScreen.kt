@@ -14,8 +14,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.outlined.Verified
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,6 +52,7 @@ import com.example.hotel.ui.viewmodel.PlaceDetailViewModel
 /**
  * Place detail screen
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaceDetailScreen(
     placeId: String,
@@ -240,7 +242,7 @@ fun PlaceDetailContent(
                         modifier = Modifier.padding(bottom = 8.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Verified,
+                            imageVector = Icons.Default.CheckCircle,
                             contentDescription = null,
                             tint = Color(0xFFFFD233),
                             modifier = Modifier.size(14.dp)
