@@ -7,7 +7,7 @@ A curated travel inspiration app built with modern Android development practices
 - **Authentication**: User registration and login with GraphQL integration
 - **Home Screen**: Displays recommended travel destinations
 - **Responsive Design**: Adapts to different screen sizes
-- **Offline Support**: Caches data for offline viewing
+- **Offline Support**: Caches data for offline viewing and provides fallback UI when API is unavailable
 - **Modern UI**: Built with Jetpack Compose
 
 ## Setup Instructions
@@ -56,6 +56,18 @@ The app follows the MVVM (Model-View-ViewModel) architecture pattern with clean 
 
 The app uses Retrofit with custom interceptors to handle GraphQL queries and mutations. Authentication is managed through bearer tokens in request headers.
 
+### Fallback Data System
+
+The app implements a robust fallback mechanism that activates when:
+- The API is unavailable or returns errors
+- Network connectivity is lost
+- Authentication issues occur
+
+This ensures users always have content to view, even in offline scenarios. The fallback system:
+- Provides pre-defined travel destinations with Unsplash images
+- Maintains the same UI structure as the online experience
+- Offers users an explicit option to "Use Offline Data" when network errors occur
+
 ### Responsive Design
 
 The UI is designed to be responsive across different screen sizes using:
@@ -72,7 +84,7 @@ app/
 │   │   ├── java/com/example/hotel/
 │   │   │   ├── data/
 │   │   │   │   ├── auth/         # Authentication management
-│   │   │   │   ├── model/        # Data models
+│   │   │   │   ├── model/        # Data models and fallback data
 │   │   │   │   ├── network/      # API and network components
 │   │   │   │   └── repository/   # Data repositories
 │   │   │   ├── ui/
@@ -95,10 +107,31 @@ The app integrates with a GraphQL API at `https://lostapi.frontendlabs.co.uk/gra
 - Fetching recommended places
 - Exploring destinations
 
+## Key Screens
+
+### Home Screen
+
+The home screen is the central hub of the app, displaying:
+
+- **User Profile Header**: Shows the user's name and profile picture
+- **Search Bar**: Allows users to search for destinations (UI only in current version)
+- **Frequently Visited**: Horizontal scrollable cards showing popular destinations
+- **Recommended Places**: Vertical list of recommended travel destinations
+
+The home screen implements a robust fallback mechanism that automatically activates when the API is unavailable. This ensures users always have content to view and can continue exploring the app even without an internet connection.
+
+#### Fallback UI Features:
+
+- Seamless transition between online and offline data
+- Visual consistency with the online experience
+- High-quality placeholder images from Unsplash
+- Clear error messaging with options to retry or use offline data
+
 ## Future Improvements
 
 - Implement Google Authentication
 - Add more comprehensive error handling
-- Enhance offline capabilities
+- Further enhance offline capabilities with local database caching
 - Implement search functionality
 - Add unit and UI tests
+- Sync offline actions when connectivity is restored
